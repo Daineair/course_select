@@ -1,7 +1,6 @@
 # D0971751
 
 import globals
-import login
 
 course_list_path = "C:/course_select/course_list.txt"
 CourseList = open(course_list_path, "r+", encoding="utf-8")
@@ -182,13 +181,16 @@ def myCourses(state,uid):
                 course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
                 if course.cls_id == SID[1]: 
                     print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
+    credit(state)
 
-def credit():
+def credit(state):
     sum = 0
-    for i in myCoursesList:
-        sum = sum + int (i.cls_num)
-    print("\n總學分：" ,sum,"\n")
-credit()
+    if(state == 1):
+        for i in myCoursesList:
+            sum = sum + int (i.cls_num)
+        print("\n總學分：" ,sum,"\n")
+    myCoursesList[:] = []
+    sum = 0
 
 CourseList.close()
 StudentCourseList.close()
