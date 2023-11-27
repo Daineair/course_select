@@ -5,6 +5,7 @@ Created on Fri Nov 24 15:06:37 2023
 @author: d1090654
 """
 import course_system
+import my_course
 user_f = open("C:/course_select/User_list.txt","r+",encoding="utf-8")
 # a = "AAA"
 # user_f.write(a)
@@ -56,6 +57,7 @@ def login(login_state):
             print("login = ",login_state)
         elif mode == '2':
             print("check your courses.")
+            my_course.myCourses(state, uid)
         login(login_state)
 global login_state
 login_state = 0
