@@ -103,9 +103,9 @@ def add(state,uid,course_code):
         add_flag = 3
     if(state == 1):
         if(ClassType == "0"): #為必修課
-            print("找老師加選吧！")
+            print("必修課無法加選，找老師加選吧！")
         elif(add_flag == 2): #重複加選ㄌ
-            print("課程已加選了ฅ●ω●ฅ")
+            print("課程已重複加選了ฅ●ω●ฅ")
         elif(add_flag == 0): #衝堂ㄌ
             print("課堂時間衝突了(つ´ω`)つ")
         elif(StudentCredit + ClassNum > 10): #超過學分上限
@@ -118,9 +118,9 @@ def add(state,uid,course_code):
             print("加選成功(′゜ω。‵)")
     elif(state == 2):
         if(add_flag == 3): #不是本科老師
-            print("你是假老師(ノ▼Д▼)ノ")
+            print("你是假老師(ノ▼Д▼)ノ請找本課老師")
         elif(add_flag == 2): #重複加選ㄌ
-            print("課程已加選了ฅ●ω●ฅ")
+            print("課程已重複加選了ฅ●ω●ฅ")
         elif(add_flag == 0): #衝堂ㄌ
             print("課堂時間衝突了(つ´ω`)つ")
         elif(StudentCredit + ClassNum > 10): #超過學分上限
