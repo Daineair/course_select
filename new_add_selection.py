@@ -99,7 +99,7 @@ def add(state,uid,course_code):
                                 break
                                 #print("\naddfilg", add_flag)
                     #print("flag", add_flag)
-    if(state == 2 and globals.uid != course.cls_professor): #你不是這門課的老師
+    if(state == 2 and uid != course.cls_professor): #你不是這門課的老師
         add_flag = 3
     if(state == 1):
         if(ClassType == "0"): #為必修課
