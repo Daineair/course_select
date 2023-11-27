@@ -28,7 +28,6 @@ class StudentCourse():
         self.cid = cid
 
 def add(state,uid,course_code):
-    AddNum = 0
     ClassId = "0000"
     ClassType = "0"
     ClassNum = 0
@@ -49,14 +48,13 @@ def add(state,uid,course_code):
         studentID = uid
         
     #print("\n輸入預加選課程代碼：")
-    AddNum = course_code
     add_flag = 1
     StudentCredit = 0
     add_time = 0
     add_time_day = 0
     add_time_start = 0
     add_time_conti = 0
-    add_classId = AddNum[0]
+    add_classId = course_code
     for i in range(len(s)): 
         unit = s[i].split()
         course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
