@@ -78,7 +78,9 @@ def course_main(login_state,state,uid):
                if(x == '1'):
                    add_selection.add(state,uid,course_code)
            if(state == 2 and course[2] == uid) :
-               mode = input("可輸入'1'進入修改模式(或輸入其他任意建退回搜尋課程):")
+               mode = input("可輸入'1'進入修改模式，輸入'2'為學生加選(或輸入其他任意建退回搜尋課程):")
                if mode == '1':
                    modify_content.modify(course[2],course[6], course[7])
                    print("修改完成，繼續搜尋課程模式")
+               elif mode == '2':
+                   add_selection.add(state,uid,course_code)
