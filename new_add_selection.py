@@ -76,7 +76,9 @@ def add(state,uid,course_code):
         #print("\nadd", add_time, add_time_day, add_time_start, add_time_conti)
         for j in range(len(ns)): #Credit Total
             num = ns[j].split()
-            studentCourse = StudentCourse(num[0], num[1]) 
+            studentCourse = StudentCourse(num[0], num[1])
+            if(studentCourse.cid == add_classId): #課堂人數計算
+                total_student += 1            
             if(studentCourse.uid == studentID):              
                 if(studentCourse.cid == course.cls_id): 
                     credit = int(course.cls_num) #學分計算
@@ -97,8 +99,10 @@ def add(state,uid,course_code):
                             if(i>=time_start and i<=(time_start+time_conti)):
                                 add_flag = 0
                                 break
-                                print("\naddfilg", add_flag)
+                                #print("\naddfilg", add_flag)
                     #print("flag", add_flag)
+    if(state == 2 and globals.uid != course.cls_professor): #你不是這門課的老師
+        add_flag = 3
     if(state == 1):
         if(ClassType == "0"): #為必修課
             print("找老師加選吧！")
@@ -108,17 +112,23 @@ def add(state,uid,course_code):
             print("課堂時間衝突了(つ´ω`)つ")
         elif(StudentCredit + ClassNum > 10): #超過學分上限
             print("超過學分上限囉.-.")
+        elif(total_student >= 2):
+            print("課堂人數已滿了ฅ^•ﻌ•^ฅ")
         else: #寫入學生資料
             with open(path2, "a") as file:
                 file.write("\n" + studentID + "        " + add_classId)
             print("加選成功(′゜ω。‵)")
     elif(state == 2):
-        if(add_flag == 2): #重複加選ㄌ
+        if(add_flag == 3): #不是本科老師
+            print("你是假老師(ノ▼Д▼)ノ")
+        elif(add_flag == 2): #重複加選ㄌ
             print("課程已加選了ฅ●ω●ฅ")
         elif(add_flag == 0): #衝堂ㄌ
             print("課堂時間衝突了(つ´ω`)つ")
         elif(StudentCredit + ClassNum > 10): #超過學分上限
             print("超過學分上限囉.-.")
+        elif(total_student >= 2):
+            print("課堂人數已滿了ฅ^•ﻌ•^ฅ")
         else: #寫入學生資料
             with open(path2, "a") as file:
                 file.write("\n" + studentID + "        " + add_classId)
