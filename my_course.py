@@ -3,11 +3,11 @@
 import globals
 import login
 
-course_list_path = "course_list.txt"
+course_list_path = "C:/course_select/course_list.txt"
 CourseList = open(course_list_path, "r+", encoding="utf-8")
-student_course_list_path = "student_course_list.txt"
+student_course_list_path = "C:/course_select/student_course_list.txt"
 StudentCourseList = open(student_course_list_path, "r+", encoding="utf-8")
-User_list_path = "User_list.txt"
+User_list_path = "C:/course_select/User_list.txt"
 UserList = open(User_list_path, "r+", encoding="utf-8")
 
 myCoursesList = []
