@@ -56,7 +56,6 @@ def login(login_state):
             print("login = ",login_state)
         elif mode == '2':
             print("check your courses.")
-            login_state = my_course.myCourses(state, uid)
         login(login_state)
 global login_state
 login_state = 0
