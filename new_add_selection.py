@@ -99,8 +99,6 @@ def add(state,uid,course_code):
                                 break
                                 #print("\naddfilg", add_flag)
                     #print("flag", add_flag)
-    if(state == 2 and uid != course.cls_professor): #你不是這門課的老師
-        add_flag = 3
     if(state == 1):
         if(ClassType == "0"): #為必修課
             print("必修課無法加選，找老師加選吧！")
@@ -117,9 +115,7 @@ def add(state,uid,course_code):
                 file.write("\n" + studentID + "        " + add_classId)
             print("加選成功(′゜ω。‵)")
     elif(state == 2):
-        if(add_flag == 3): #不是本科老師
-            print("你是假老師(ノ▼Д▼)ノ請找本課老師")
-        elif(add_flag == 2): #重複加選ㄌ
+        if(add_flag == 2): #重複加選ㄌ
             print("課程已重複加選了ฅ●ω●ฅ")
         elif(add_flag == 0): #衝堂ㄌ
             print("課堂時間衝突了(つ´ω`)つ")
