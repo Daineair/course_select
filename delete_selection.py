@@ -21,19 +21,19 @@ class StudentCourse():
         self.uid = uid
         self.cid = cid
 
-def time(t):
-    time_mapping = {
-        "1013": "星期一 早上8點 3節",
-        "1063": "星期一 下午1點 3節",
-        "3032": "星期三 早上10點 2節",
-        "5072": "星期五 下午2點 2節",
-        "4061": "星期四 下午1點 1節",
-        "1022": "星期一 早上9點 2節",
-        "3042": "星期三 早上11點 2節",
-        "2063": "星期二 下午1點 3節"
-    }
-    if t in time_mapping:
-        return time_mapping[t]
+# def time(t):
+#     time_mapping = {
+#         "1013": "星期一 早上8點 3節",
+#         "1063": "星期一 下午1點 3節",
+#         "3032": "星期三 早上10點 2節",
+#         "5072": "星期五 下午2點 2節",
+#         "4061": "星期四 下午1點 1節",
+#         "1022": "星期一 早上9點 2節",
+#         "3042": "星期三 早上11點 2節",
+#         "2063": "星期二 下午1點 3節"
+#     }
+#     if t in time_mapping:
+#         return time_mapping[t]
         
 def delete(state ,uid):
     if state == 2:
@@ -92,19 +92,20 @@ def delete(state ,uid):
                         break
             #print("deleteself:"+str(deleteself))
             if deleteself=="1":
-                delete_id=0
-                delete_cid=0
-                for i in range(len(sc)): #對身分
-                    num = sc[i].split()
-                    studentCourse = StudentCourse(num[0], num[1])
-                    if choose==num[1]:
-                        delete_id=num[0]
-                        delete_cid=num[1]
-                        break
-                #print("delete_id:"+delete_id+" delete_cid:"+delete_cid)
+                # delete_id=0
+                # delete_cid=0
+                # for i in range(len(sc)): #對身分
+                #     num = sc[i].split()
+                #     studentCourse = StudentCourse(num[0], num[1])
+                #     if choose==num[1]:
+                #         delete_id=num[0]
+                #         delete_cid=num[1]
+                #         print()
+                #         break
+                print("delete_id:"+studentID+" delete_cid:"+choose)
                 with fileinput.FileInput("C:/course_select/student_course_list.txt", inplace=True, backup=".bak") as file:
                    for line in file:
-                       if f"{delete_id}\t{delete_cid}" not in line:
+                       if f"{studentID}\t{choose}" not in line:
                            print(line, end='')
                 print("退選成功，以下是您的課表")
                 # with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
