@@ -7,7 +7,7 @@ Created on Sat Nov 25 23:07:25 2023
 # import globals
 # from login import user
 import modify_content
-import add_selection
+import new_add_selection
 def read_course_data(file_path):
     courses = []
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -76,11 +76,11 @@ def course_main(login_state,state,uid):
            if(state == 1):
                x = input("如要加選該課程請按'1'，繼續查詢按其他任意建:")
                if(x == '1'):
-                   add_selection.add(state,uid,course_code)
+                   new_add_selection.add(state,uid,course_code)
            if(state == 2 and course[2] == uid) :
                mode = input("可輸入'1'進入修改模式，輸入'2'為學生加選(或輸入其他任意建退回搜尋課程):")
                if mode == '1':
                    modify_content.modify(course[2],course[6], course[7])
                    print("修改完成，繼續搜尋課程模式")
                elif mode == '2':
-                   add_selection.add(state,uid,course_code)
+                   new_add_selection.add(state,uid,course_code)
