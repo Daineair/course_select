@@ -55,15 +55,18 @@ global States
 
 def myCourses(state,uid):
 
+
     course_list_path = "C:/course_select/course_list.txt"
     CourseList = open(course_list_path, "r+", encoding="utf-8")
     student_course_list_path = "C:/course_select/student_course_list.txt"
     StudentCourseList = open(student_course_list_path, "r+", encoding="utf-8")
     User_list_path = "C:/course_select/User_list.txt"
     UserList = open(User_list_path, "r+", encoding="utf-8")
-
+    
     myCoursesList = []
     timetable = [[0] * 5 for i in range(15)]
+    TEACHERnAME = [[0] * 5 for i in range(15)]
+    CLASSiD = [[0] * 5 for i in range(15)]
 
     C_list = CourseList.read().split("\n")
     S_list = StudentCourseList.read().split("\n")
@@ -92,8 +95,14 @@ def myCourses(state,uid):
                                 class_day = int (course.cls_time[0])
                                 class_time = int (course.cls_time[2])
                                 class_num = int (course.cls_time[3])
-                                for i in range(class_num):
-                                    timetable[class_time+i-1][class_day-1] = course.cls_name
+                                for n in range(class_num):
+                                    timetable[class_time+n-1][class_day-1] = course.cls_name
+                                    for s in range(len(U_list)):
+                                        Tname = U_list[s].split()
+                                        if(len(Tname)>1):
+                                            if(Tname[0]==course.cls_professor):
+                                                TEACHERnAME[class_time+n-1][class_day-1] = Tname[2]
+                                    CLASSiD[class_time+n-1][class_day-1] = course.cls_id
                                 break
                             else:
                                 t = classTime(Class_time[0],Class_time[1],Class_time[2],Class_time[4],Class_time[5],Class_time[6])
@@ -110,8 +119,14 @@ def myCourses(state,uid):
                                         class_time = int (t.stime[2]+t.stime[3]) + 5
                                 
                                 class_num = int (t.hours[0])
-                                for i in range(class_num):
-                                    timetable[class_time+i-1][class_day-1] = course.cls_name
+                                for n in range(class_num):
+                                    timetable[class_time+n-1][class_day-1] = course.cls_name
+                                    for s in range(len(U_list)):
+                                        Tname = U_list[s].split()
+                                        if(len(Tname)>1):
+                                            if(Tname[0]==course.cls_professor):
+                                                TEACHERnAME[class_time+n-1][class_day-1] = Tname[2]
+                                    CLASSiD[class_time+n-1][class_day-1] = course.cls_id
                                 class_day = day(t.day2)
                                 if(len(t.stime2)==4):
                                     if(t.stime2 in "早上"):
@@ -124,24 +139,17 @@ def myCourses(state,uid):
                                     else:
                                         class_time = int (t.stime2[2]+t.stime2[3]) + 5
                                 class_num = int (t.hours2[0])
-                                for i in range(class_num):
-                                    timetable[class_time+i-1][class_day-1] = course.cls_name
+                                for n in range(class_num):
+                                    timetable[class_time+n-1][class_day-1] = course.cls_name
+                                    for s in range(len(U_list)):
+                                        Tname = U_list[s].split()
+                                        if(len(Tname)>1):
+                                            if(Tname[0]==course.cls_professor):
+                                                TEACHERnAME[class_time+n-1][class_day-1] = Tname[2]
+                                    CLASSiD[class_time+n-1][class_day-1] = course.cls_id
                                 break
 
         print("\n姓名: "+student_info.cid+"\t學號: "+student_info.uid+"\n")
-        print("-----------------------------------------------------------------------------------------")
-        print("|   \t|星期一\t\t|星期二\t\t|星期三\t\t|星期四\t\t|星期五\t\t|")
-
-        print("-----------------------------------------------------------------------------------------")
-        for i in range(15):
-            print("|",i+1,"\t"+"|",end="")
-            for j in range(5):
-                if(timetable[i][j]!=0):
-                    print(timetable[i][j],"\t"+"|",end="")
-                else:
-                    print("\t\t"+"|",end="")
-            print("")
-            print("-----------------------------------------------------------------------------------------")
     else:
         teacherID = uid
         for i  in range(len(U_list)):
@@ -160,30 +168,49 @@ def myCourses(state,uid):
                         class_day = int (course.cls_time[0])
                         class_time = int (course.cls_time[2])
                         class_num = int (course.cls_time[3])
-                        for j in range(class_num):
-                            timetable[class_time+j-1][class_day-1] = course.cls_name
+                        for n in range(class_num):
+                            timetable[class_time+n-1][class_day-1] = course.cls_name
+                            for s in range(len(U_list)):
+                                Tname = U_list[s].split()
+                                if(len(Tname)>1):
+                                    if(Tname[0]==course.cls_professor):
+                                        TEACHERnAME[class_time+n-1][class_day-1] = Tname[2]
+                            CLASSiD[class_time+n-1][class_day-1] = course.cls_id
             
         print("\n姓名: "+teacher_info.cid+"\t學號: "+teacher_info.uid+"\n")
-        print("-----------------------------------------------------------------------------------------")
-        print("|   \t|星期一\t\t|星期二\t\t|星期三\t\t|星期四\t\t|星期五\t\t|")
+    
+    print("-----------------------------------------------------------------------------------------")
+    print("|   \t|星期一\t\t|星期二\t\t|星期三\t\t|星期四\t\t|星期五\t\t|")
 
-        print("-----------------------------------------------------------------------------------------")
-        for i in range(15):
-            print("|",i+1,"\t"+"|",end="")
+    print("-----------------------------------------------------------------------------------------")
+    for i in range(15):
+        for l in range(3):
+            if(l==1):
+                print("|",i+1,"\t"+"|",end="")
+            else:
+                print("|","\t"+"|",end="")
             for j in range(5):
                 if(timetable[i][j]!=0):
-                    print(timetable[i][j],"\t"+"|",end="")
+                    if(l == 0):
+                        print(CLASSiD[i][j],"\t\t"+"|",end="")
+                    if(l == 1):
+                        print(timetable[i][j],"\t"+"|",end="")
+                    if(l == 2):
+                        if(len(TEACHERnAME[i][j])>4):
+                            print(f'({TEACHERnAME[i][j]})\t|',end="")
+                        else:
+                            print(f'({TEACHERnAME[i][j]})\t\t|',end="")
                 else:
                     print("\t\t"+"|",end="")
-            print("\n-----------------------------------------------------------------------------------------\n")
+            
+            print("")
+        print("-----------------------------------------------------------------------------------------")
+    print("")
+    credit(state,myCoursesList)
     if(state == 1):
-        print(f'學號: {studentID}的課表\n')
-    else:
-        print(f'學號: {teacherID}的課表\n')
-    for i in range(len(S_list)): #對身分
-        SID = S_list[i].split()
-        if(len(SID)>1):
-            if(state == 1):
+        for i in range(len(S_list)): #對身分
+            SID = S_list[i].split()
+            if(len(SID)>1):
                 if SID[0] == studentID:
                     for j in range(len(C_list)): #對課表課程
                         unit = C_list[j].split()
@@ -191,18 +218,17 @@ def myCourses(state,uid):
                         if(len(unit)>4):
                             course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
                             if course.cls_id == SID[1]: 
-                                print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
-                
-            else:
-                if SID[0] == teacherID:
-                    for j in range(len(C_list)): #對課表課程
-                        unit = C_list[j].split()
-                        # print(unit)
-                        if(len(unit)>4):
-                            course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                            if course.cls_id == SID[1]: 
-                                print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
-    credit(state,myCoursesList)
+                                print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}\n')
+            
+    else:
+        for j in range(len(C_list)): #對課表課程
+            unit = C_list[j].split()
+            # print(unit)
+            if(len(unit)>4):
+                course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                if course.cls_professor == teacher_info.uid: 
+                    print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}\n')
+    
     CourseList.close()
     StudentCourseList.close()
     UserList.close()
@@ -214,6 +240,6 @@ def credit(state,myCoursesList):
     if(state == 1):
         for i in myCoursesList:
             sum = sum + int (i.cls_num)
-        print("\n總學分：" ,sum,"\n")
+        print("總學分:" ,sum,"\n")
     myCoursesList[:] = []
     sum = 0
