@@ -74,6 +74,7 @@ def add(state,uid,course_code):
             #print("\n", course.cls_id, course.cls_type, course.cls_num)
             #print("\n", add_classId, ClassType, ClassNum, ClassTime)
             #print("\nadd", add_time, add_time_day, add_time_start, add_time_conti)
+            total_student=0
             for j in range(len(ns)): #Credit Total
                 num = ns[j].split()
                 if(len(num)>1):
