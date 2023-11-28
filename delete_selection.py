@@ -1,5 +1,6 @@
 #import globals
 import fileinput
+import my_course
 #from add_login import User
 
 with open("C:/course_select/course_list.txt", "r", encoding="utf-8") as course_file:
@@ -20,20 +21,6 @@ class StudentCourse():
     def __init__(self, uid, cid):
         self.uid = uid
         self.cid = cid
-
-# def time(t):
-#     time_mapping = {
-#         "1013": "星期一 早上8點 3節",
-#         "1063": "星期一 下午1點 3節",
-#         "3032": "星期三 早上10點 2節",
-#         "5072": "星期五 下午2點 2節",
-#         "4061": "星期四 下午1點 1節",
-#         "1022": "星期一 早上9點 2節",
-#         "3042": "星期三 早上11點 2節",
-#         "2063": "星期二 下午1點 3節"
-#     }
-#     if t in time_mapping:
-#         return time_mapping[t]
         
 def delete(state ,uid):
     if state == 2:
@@ -44,7 +31,7 @@ def delete(state ,uid):
         while 1==1:
             #print("in choose")
             choose=0
-            choose=input("選擇退選代號")
+            choose=input("選擇退選代號:")
             choose_flag=0
             for k in range(len(sc)): #對身分
                 num = sc[k].split()
@@ -92,34 +79,13 @@ def delete(state ,uid):
                         break
             #print("deleteself:"+str(deleteself))
             if deleteself=="1":
-                # delete_id=0
-                # delete_cid=0
-                # for i in range(len(sc)): #對身分
-                #     num = sc[i].split()
-                #     studentCourse = StudentCourse(num[0], num[1])
-                #     if choose==num[1]:
-                #         delete_id=num[0]
-                #         delete_cid=num[1]
-                #         print()
-                #         break
-                print("delete_id:"+studentID+" delete_cid:"+choose)
+                #print("delete_id:"+studentID+" delete_cid:"+choose)
                 with fileinput.FileInput("C:/course_select/student_course_list.txt", inplace=True, backup=".bak") as file:
                    for line in file:
                        if f"{studentID}\t{choose}" not in line:
                            print(line, end='')
                 print("退選成功，以下是您的課表")
                 my_course.myCourses(state,uid)
-                # with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
-                #     sc2 = s_course_file.read().split("\n")
-                # for i in range(len(sc2)): #對身分
-                #     num2 = sc2[i].split()
-                #     studentCourse2 = StudentCourse(num2[0], num2[1]) 
-                #     if studentCourse2.uid == studentID:
-                #         for j in range(len(c)): #對課表課程
-                #             unit = c[j].split()
-                #             course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                #             if course.cls_id == studentCourse2.cid: 
-                #                print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
             else:
                 print("退選失敗，必修不能退選")
         else:
