@@ -20,6 +20,18 @@ class StudentCourse():
     def __init__(self, uid, cid):
         self.uid = uid
         self.cid = cid
+
+def time(t):
+    time_mapping = {
+        "1013": "星期一 早上8點 3節",
+        "1063": "星期一 下午1點 3節",
+        "3032": "星期三 早上10點 2節",
+        "5072": "星期五 下午2點 2節",
+        "4061": "星期四 下午1點 1節",
+        "1022": "星期一 早上9點 2節"
+    }
+    if t in time_mapping:
+        return time_mapping[t]
         
 def delete(state ,uid):
     if state == 2:
@@ -28,29 +40,21 @@ def delete(state ,uid):
         #print("in delete_section")
         studentID = uid
         while 1==1:
+            #print("in choose")
             choose=0
-            choose=input()
+            choose=input("選擇退選代號")
             choose_flag=0
             for k in range(len(sc)): #對身分
                 num = sc[k].split()
                 studentCourse = StudentCourse(num[0], num[1])
                 if choose==studentCourse.cid:
                     choose_flag=1
-                    print("選擇退選"+choose)
+                    print("已選擇退選"+choose)
                     break
             if choose_flag==1:   
                 break
             if choose_flag==0:   
                 print("您的課程沒有代碼為"+choose+"請再輸入一次")
-                for i in range(len(sc)): #對身分
-                    num = sc[i].split()
-                    studentCourse = StudentCourse(num[0], num[1]) 
-                    if studentCourse.uid == studentID:
-                        for j in range(len(c)): #對課表課程
-                            unit = c[j].split()
-                            course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                            if course.cls_id == studentCourse.cid: 
-                               print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
         minus=0
         total=0
         final=0

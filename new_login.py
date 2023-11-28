@@ -62,7 +62,7 @@ def login(login_state):
             my_course.myCourses(state, uid)
             withdraw_course = input("Do you want to withdraw any course?(y/n)")
             if withdraw_course=="y":
-                print("yes")
+                #print("yes")
                 delete_selection.delete(state, uid)
         login(login_state)
 global login_state
