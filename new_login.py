@@ -6,6 +6,7 @@ Created on Fri Nov 24 15:06:37 2023
 """
 import new_course_system
 import my_course
+import delete_selection
 user_f = open("C:/course_select/User_list.txt","r+",encoding="utf-8")
 # a = "AAA"
 # user_f.write(a)
@@ -56,8 +57,13 @@ def login(login_state):
             login_state = new_course_system.course_main(login_state, state, uid)
             print("login = ",login_state)
         elif mode == '2':
+            withdraw_course = 0
             print("check your courses.")
             my_course.myCourses(state, uid)
+            withdraw_course = input("Do you want to withdraw any course?(y/n)")
+            if withdraw_course=="y":
+                print("yes")
+                delete_selection.delete(state, uid)
         login(login_state)
 global login_state
 login_state = 0

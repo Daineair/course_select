@@ -1,6 +1,6 @@
-import globals
+#import globals
 import fileinput
-from add_login import User
+#from add_login import User
 
 with open("C:/course_select/course_list.txt", "r", encoding="utf-8") as course_file:
         c = course_file.read().split("\n")
@@ -20,36 +20,13 @@ class StudentCourse():
     def __init__(self, uid, cid):
         self.uid = uid
         self.cid = cid
-
-def time(t):
-    time_mapping = {
-        "1013": "星期一 早上8點 3節",
-        "1063": "星期一 下午1點 2節 和 星期二 早上8點 1節",
-        "3032": "星期三 早上10點 2節",
-        "5072": "星期五 下午2點 2節",
-        "4061": "星期四 下午1點 1節",
-        "1022": "星期一 早上9點 2節"
-    }
-
-    if t in time_mapping:
-        return time_mapping[t]
         
-def delete():
-    if globals.state == 2:
+def delete(state ,uid):
+    if state == 2:
         print("\n老師無法幫學生退選，請學生自行退選")
     else:
-        studentID = globals.uid
-        print(f'學號: {studentID}的課表')
-        for i in range(len(sc)): #對身分
-            num = sc[i].split()
-            studentCourse = StudentCourse(num[0], num[1]) 
-            if studentCourse.uid == studentID:
-                for j in range(len(c)): #對課表課程
-                    unit = c[j].split()
-                    course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                    if course.cls_id == studentCourse.cid: 
-                       print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
-        print("想退選哪一科，請輸入課程代碼")#選擇退選
+        #print("in delete_section")
+        studentID = uid
         while 1==1:
             choose=0
             choose=input()
@@ -138,6 +115,3 @@ def delete():
                 print("退選失敗，必修不能退選")
         else:
             print("退選失敗，學分下限不能低於七學分")
-            
-            
-delete()
