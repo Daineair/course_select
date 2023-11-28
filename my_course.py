@@ -145,18 +145,19 @@ def myCourses(state,uid):
                 teacher_info = userInfo(UserID[0],UserID[2])
         for i in range(len(C_list)):
             CID = C_list[i].split()
-            if(CID[2] == teacherID):
-                CourseID = CID[0]
-                course = Course(CID[0], CID[1], CID[2], CID[3], CID[4], CID[5])
-                if(CourseID == course.cls_id):
-                    cnt += cnt + 1
-                    myCoursesList.append(course)
-                    class_day = int (course.cls_time[0])
-                    class_time = int (course.cls_time[2])
-                    class_num = int (course.cls_time[3])
-                    for j in range(class_num):
-                        timetable[class_time+j-1][class_day-1] = course.cls_name
-        
+            if(len(CID)>4):
+                if(CID[2] == teacherID):
+                    CourseID = CID[0]
+                    course = Course(CID[0], CID[1], CID[2], CID[3], CID[4], CID[5])
+                    if(CourseID == course.cls_id):
+                        cnt += cnt + 1
+                        myCoursesList.append(course)
+                        class_day = int (course.cls_time[0])
+                        class_time = int (course.cls_time[2])
+                        class_num = int (course.cls_time[3])
+                        for j in range(class_num):
+                            timetable[class_time+j-1][class_day-1] = course.cls_name
+            
         print("\n姓名: "+teacher_info.cid+"\t學號: "+teacher_info.uid+"\n")
         print("-----------------------------------------------------------------------------------------")
         print("|   \t|星期一\t\t|星期二\t\t|星期三\t\t|星期四\t\t|星期五\t\t|")
@@ -170,18 +171,33 @@ def myCourses(state,uid):
                 else:
                     print("\t\t"+"|",end="")
             print("\n-----------------------------------------------------------------------------------------\n")
-        
-    print(f'學號: {studentID}的課表\n')
+    if(state == 1):
+        print(f'學號: {studentID}的課表\n')
+    else:
+        print(f'學號: {teacherID}的課表\n')
     for i in range(len(S_list)): #對身分
         SID = S_list[i].split()
-        # print(S_list[i])
-        if SID[0] == studentID:
-            for j in range(len(C_list)): #對課表課程
-                unit = C_list[j].split()
-                course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                if course.cls_id == SID[1]: 
-                    print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
+        if(state == 1):
+            if SID[0] == studentID:
+                for j in range(len(C_list)): #對課表課程
+                    unit = C_list[j].split()
+                    # print(unit)
+                    if(len(unit)>4):
+                        course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                        if course.cls_id == SID[1]: 
+                            print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
+            
+        else:
+            if SID[0] == teacherID:
+                for j in range(len(C_list)): #對課表課程
+                    unit = C_list[j].split()
+                    # print(unit)
+                    if(len(unit)>4):
+                        course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                        if course.cls_id == SID[1]: 
+                            print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
     credit(state)
+
 
 def credit(state):
     sum = 0
