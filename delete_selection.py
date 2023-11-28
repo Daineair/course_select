@@ -3,11 +3,6 @@ import fileinput
 import my_course
 #from add_login import User
 
-with open("C:/course_select/course_list.txt", "r", encoding="utf-8") as course_file:
-        c = course_file.read().split("\n")
-with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
-        sc = s_course_file.read().split("\n")
-
 class Course():
     def __init__(self, cls_id, cls_name, cls_professor, cls_type, cls_num, cls_time):
         self.cls_id = cls_id
@@ -23,6 +18,10 @@ class StudentCourse():
         self.cid = cid
         
 def delete(state ,uid):
+    with open("C:/course_select/course_list.txt", "r", encoding="utf-8") as course_file:
+        c = course_file.read().split("\n")
+    with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
+        sc = s_course_file.read().split("\n")
     if state == 2:
         print("\n老師無法幫學生退選，請學生自行退選")
     else:
