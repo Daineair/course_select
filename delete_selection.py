@@ -107,17 +107,17 @@ def delete(state ,uid):
                        if f"{delete_id}\t{delete_cid}" not in line:
                            print(line, end='')
                 print("退選成功，以下是您的課表")
-                with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
-                    sc2 = s_course_file.read().split("\n")
-                for i in range(len(sc2)): #對身分
-                    num2 = sc2[i].split()
-                    studentCourse2 = StudentCourse(num2[0], num2[1]) 
-                    if studentCourse2.uid == studentID:
-                        for j in range(len(c)): #對課表課程
-                            unit = c[j].split()
-                            course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                            if course.cls_id == studentCourse2.cid: 
-                               print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
+                # with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
+                #     sc2 = s_course_file.read().split("\n")
+                # for i in range(len(sc2)): #對身分
+                #     num2 = sc2[i].split()
+                #     studentCourse2 = StudentCourse(num2[0], num2[1]) 
+                #     if studentCourse2.uid == studentID:
+                #         for j in range(len(c)): #對課表課程
+                #             unit = c[j].split()
+                #             course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                #             if course.cls_id == studentCourse2.cid: 
+                #                print(f'課程代碼: {course.cls_id} 課程名稱: {course.cls_name} 課程學分: {course.cls_num} 課程時間: {time(course.cls_time)}')
             else:
                 print("退選失敗，必修不能退選")
         else:
