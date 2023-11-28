@@ -108,6 +108,7 @@ def delete(state ,uid):
                        if f"{studentID}\t{choose}" not in line:
                            print(line, end='')
                 print("退選成功，以下是您的課表")
+                my_course.myCourses(state,uid)
                 # with open("C:/course_select/student_course_list.txt", "r", encoding="utf-8") as s_course_file:
                 #     sc2 = s_course_file.read().split("\n")
                 # for i in range(len(sc2)): #對身分
