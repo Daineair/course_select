@@ -28,7 +28,9 @@ def time(t):
         "3032": "星期三 早上10點 2節",
         "5072": "星期五 下午2點 2節",
         "4061": "星期四 下午1點 1節",
-        "1022": "星期一 早上9點 2節"
+        "1022": "星期一 早上9點 2節",
+        "3042": "星期三 早上11點 2節",
+        "2063": "星期二 下午1點 3節"
     }
     if t in time_mapping:
         return time_mapping[t]
@@ -47,14 +49,15 @@ def delete(state ,uid):
             for k in range(len(sc)): #對身分
                 num = sc[k].split()
                 studentCourse = StudentCourse(num[0], num[1])
-                if choose==studentCourse.cid:
-                    choose_flag=1
-                    print("已選擇退選"+choose)
-                    break
+                if studentID==num[0]:
+                    if choose == str(studentCourse.cid):
+                        choose_flag=1
+                        print("已選擇退選"+choose)
+                        break
             if choose_flag==1:   
                 break
             if choose_flag==0:   
-                print("您的課程沒有代碼為"+choose+"請再輸入一次")
+                print("您的課程沒有代碼為"+choose+"，請再輸入一次")
         minus=0
         total=0
         final=0
