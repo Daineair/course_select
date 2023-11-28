@@ -57,48 +57,51 @@ def add(state,uid,course_code):
     add_classId = course_code
     for i in range(len(s)): 
         unit = s[i].split()
-        course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-        if(course.cls_id == add_classId): #Select
-            ClassType = course.cls_type
-            ClassNum = int(course.cls_num)
-            ClassTime = int(course.cls_time)
-            add_time = ClassTime #加選課程時間分析
-            add_time_day = add_time // 1000 
-            add_time_start = (add_time - (add_time_day*1000)) // 10
-            add_time_conti = add_time % 10
+        if(len(unit)>1):
+            course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+            if(course.cls_id == add_classId): #Select
+                ClassType = course.cls_type
+                ClassNum = int(course.cls_num)
+                ClassTime = int(course.cls_time)
+                add_time = ClassTime #加選課程時間分析
+                add_time_day = add_time // 1000 
+                add_time_start = (add_time - (add_time_day*1000)) // 10
+                add_time_conti = add_time % 10
     for i in range(len(s)): 
         unit = s[i].split()
-        course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-        #print("\n", course.cls_id, course.cls_type, course.cls_num)
-        #print("\n", add_classId, ClassType, ClassNum, ClassTime)
-        #print("\nadd", add_time, add_time_day, add_time_start, add_time_conti)
-        for j in range(len(ns)): #Credit Total
-            num = ns[j].split()
-            studentCourse = StudentCourse(num[0], num[1])
-            if(studentCourse.cid == add_classId): #課堂人數計算
-                total_student += 1
-            if(studentCourse.uid == studentID):              
-                if(studentCourse.cid == course.cls_id): 
-                    credit = int(course.cls_num) #學分計算
-                    StudentCredit += credit  
-                    #print(StudentCredit,studentCourse.cid, course.cls_id, studentCourse.uid, "\n")
-                    time = int(course.cls_time) #學生課程時間分析
-                    time_day = time // 1000
-                    time_start = (time - (time_day*1000)) // 10
-                    time_conti = time % 10
-                    #print("\ncourse", time, time_day, time_start, time_conti)
-                    #print("\nadd", add_time, add_time_day, add_time_start, add_time_conti)
-                    #print("\nstudentCourse.cid", studentCourse.cid,"add", add_classId)
-                    if(studentCourse.cid == add_classId): #是否同一堂課
-                        add_flag = 2
-                    elif((add_time_day == time_day) and add_time != 0): #時間是否衝突
-                        for i in range(add_time_start, (add_time_start+add_time_conti+1)):
-                            #print("\ni:", i)
-                            if(i>=time_start and i<=(time_start+time_conti)):
-                                add_flag = 0
-                                break
-                                #print("\naddfilg", add_flag)
-                    #print("flag", add_flag)
+        if(len(unit)>1):
+            course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+            #print("\n", course.cls_id, course.cls_type, course.cls_num)
+            #print("\n", add_classId, ClassType, ClassNum, ClassTime)
+            #print("\nadd", add_time, add_time_day, add_time_start, add_time_conti)
+            for j in range(len(ns)): #Credit Total
+                num = ns[j].split()
+                if(len(num)>1):
+                    studentCourse = StudentCourse(num[0], num[1])
+                    if(studentCourse.cid == add_classId): #課堂人數計算
+                        total_student += 1
+                    if(studentCourse.uid == studentID):              
+                        if(studentCourse.cid == course.cls_id): 
+                            credit = int(course.cls_num) #學分計算
+                            StudentCredit += credit  
+                            #print(StudentCredit,studentCourse.cid, course.cls_id, studentCourse.uid, "\n")
+                            time = int(course.cls_time) #學生課程時間分析
+                            time_day = time // 1000
+                            time_start = (time - (time_day*1000)) // 10
+                            time_conti = time % 10
+                            #print("\ncourse", time, time_day, time_start, time_conti)
+                            #print("\nadd", add_time, add_time_day, add_time_start, add_time_conti)
+                            #print("\nstudentCourse.cid", studentCourse.cid,"add", add_classId)
+                            if(studentCourse.cid == add_classId): #是否同一堂課
+                                add_flag = 2
+                            elif((add_time_day == time_day) and add_time != 0): #時間是否衝突
+                                for i in range(add_time_start, (add_time_start+add_time_conti+1)):
+                                    #print("\ni:", i)
+                                    if(i>=time_start and i<=(time_start+time_conti)):
+                                        add_flag = 0
+                                        break
+                                        #print("\naddfilg", add_flag)
+                            #print("flag", add_flag)
     if(state == 1):
         if(ClassType == "0"): #為必修課
             print("必修課無法加選，找老師加選吧！")
@@ -112,7 +115,7 @@ def add(state,uid,course_code):
             print("課堂人數已滿了ฅ^•ﻌ•^ฅ")
         else: #寫入學生資料
             with open(path2, "a") as file:
-                file.write("\n" + studentID + "        " + add_classId)
+                file.write("\n" + studentID + "\t" + add_classId)
             print("加選成功(′゜ω。‵)")
     elif(state == 2):
         if(add_flag == 2): #重複加選ㄌ
@@ -125,7 +128,7 @@ def add(state,uid,course_code):
             print("課堂人數已滿了ฅ^•ﻌ•^ฅ")
         else: #寫入學生資料
             with open(path2, "a") as file:
-                file.write("\n" + studentID + "        " + add_classId)
+                file.write("\n" + studentID + "\t" + add_classId)
             print("加選成功(′゜ω。‵)")
     f.close()
     nf.close()
