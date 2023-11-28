@@ -47,7 +47,7 @@ def login(login_state):
         if state == 1:#學生
             mode = input("Enter '1' search courses, '2' check your courses,'0' log out': ")
         elif state == 2:#老師
-            mode = input("Enter '1' search courses,'0' log out':")
+            mode = input("Enter '1' search courses, '2' check your courses,'0' log out': ")
         print(mode)
         if mode == '0':
             print("log out successfully!")
