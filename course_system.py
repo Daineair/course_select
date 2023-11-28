@@ -5,9 +5,9 @@ Created on Sat Nov 25 23:07:25 2023
 @author: D0927628
 """
 import globals
-from login import user
+#from login import user
 import modify_content
-import login
+#import login
 def read_course_data(file_path):
     courses = []
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -52,8 +52,8 @@ def display_course_info(course,login_state, state, uid):
         print(f"課程目標：{course[7]}")
     else:
         print("找不到該課程")
-        course_system(login_state, state, uid)
-def course_system(login_state,state,uid):
+        course_main(login_state, state, uid)
+def course_main(login_state,state,uid):
     #if __name__ == "__login__":
        global teachers
        file_path = "course_list.txt"
