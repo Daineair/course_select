@@ -35,12 +35,13 @@ def delete(state ,uid):
             choose_flag=0
             for k in range(len(sc)): #對身分
                 num = sc[k].split()
-                studentCourse = StudentCourse(num[0], num[1])
-                if studentID==num[0]:
-                    if choose == str(studentCourse.cid):
-                        choose_flag=1
-                        print("已選擇退選"+choose)
-                        break
+                if(len(num)>1):
+                    studentCourse = StudentCourse(num[0], num[1])
+                    if studentID==num[0]:
+                        if choose == str(studentCourse.cid):
+                            choose_flag=1
+                            print("已選擇退選"+choose)
+                            break
             if choose_flag==1:   
                 break
             if choose_flag==0:   
@@ -50,21 +51,23 @@ def delete(state ,uid):
         final=0
         for j in range(len(c)): #找該課程學分
             unit = c[j].split()
-            course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-            if choose == unit[0]: 
-                minus=int(unit[4])
-                #print("扣該課程學分" + str(minus))
-                break
+            if(len(unit)>1):
+                course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                if choose == unit[0]: 
+                    minus=int(unit[4])
+                    #print("扣該課程學分" + str(minus))
+                    break
         for i in range(len(sc)): #對身分
             num = sc[i].split()
-            studentCourse = StudentCourse(num[0], num[1]) 
-            if studentCourse.uid == studentID:    
-                for k in range(len(c)): #對課表課程
-                    unit = c[k].split()
-                    course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                    if course.cls_id == studentCourse.cid: 
-                        total+=int(unit[4])
-                        #print("目前課程學分" + str(total))
+            if(len(num)>1):
+                studentCourse = StudentCourse(num[0], num[1]) 
+                if studentCourse.uid == studentID:    
+                    for k in range(len(c)): #對課表課程
+                        unit = c[k].split()
+                        course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                        if course.cls_id == studentCourse.cid: 
+                            total+=int(unit[4])
+                            #print("目前課程學分" + str(total))
         final=total-minus
         #print("總學分" + str(final))
         if final>=7:
@@ -72,11 +75,12 @@ def delete(state ,uid):
             for i in range(len(c)): #找該課程學分
                     #print("in loop")
                     unit = c[i].split()
-                    course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
-                    if choose == unit[0]: 
-                        deleteself=unit[3]
-                        #print("是否為必修:"+deleteself+" unit[0]:"+unit[0]+" unit[3]:"+unit[3])
-                        break
+                    if(len(unit)>1):
+                        course = Course(unit[0], unit[1], unit[2], unit[3], unit[4], unit[5])
+                        if choose == unit[0]: 
+                            deleteself=unit[3]
+                            #print("是否為必修:"+deleteself+" unit[0]:"+unit[0]+" unit[3]:"+unit[3])
+                            break
             #print("deleteself:"+str(deleteself))
             if deleteself=="1":
                 #print("delete_id:"+studentID+" delete_cid:"+choose)
