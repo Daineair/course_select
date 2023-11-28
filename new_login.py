@@ -4,7 +4,7 @@ Created on Fri Nov 24 15:06:37 2023
 
 @author: d1090654
 """
-import course_system
+import new_course_system
 import my_course
 user_f = open("C:/course_select/User_list.txt","r+",encoding="utf-8")
 # a = "AAA"
@@ -19,7 +19,7 @@ def login(login_state):
     global state,uid
     if(login_state == 0):
         state = 0
-        print("Enter your id and passward:")
+        print("Enter your id and password:")
         s = user_f.read().split("\n")
         info = input().split()
         if(len(info) > 2 or len(info) < 2):
@@ -53,7 +53,7 @@ def login(login_state):
             return 1
         elif mode == '1':
             print("search courses.")
-            login_state = course_system.course_main(login_state, state, uid)
+            login_state = new_course_system.course_main(login_state, state, uid)
             print("login = ",login_state)
         elif mode == '2':
             print("check your courses.")
