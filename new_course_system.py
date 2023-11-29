@@ -4,10 +4,10 @@ Created on Sat Nov 25 23:07:25 2023
 
 @author: D0927628
 """
-import globals
-#from login import user
+# import globals
+# from login import user
 import modify_content
-#import login
+import new_add_selection
 def read_course_data(file_path):
     courses = []
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -30,7 +30,9 @@ def convert_schedule(schedule):
                "3032": "星期三 早上10點 2節",
                "5072": "星期五 下午2點 2節",
                "4061": "星期四 下午1點 1節",
-               "1022": "星期一 早上9點 2節"}
+               "1022": "星期一 早上9點 2節",
+               "3042": "星期三 早上11點 2節",
+               "2063": "星期二 下午1點 3節"}
 
     schedule_info = day_map.get(schedule, "未知日期和時間")
     return schedule_info
@@ -73,8 +75,14 @@ def course_main(login_state,state,uid):
            course = search_course(course_code, courses)
            display_course_info(course,login_state, state, uid)
            print("使用者ID=",uid)
+           if(state == 1):
+               x = input("如要加選該課程請按'1'，繼續查詢按其他任意建:")
+               if(x == '1'):
+                   new_add_selection.add(state,uid,course_code)
            if(state == 2 and course[2] == uid) :
-               mode = input("可輸入'1'進入修改模式(或輸入其他任意建退回搜尋課程):")
+               mode = input("可輸入'1'進入修改模式，輸入'2'為學生加選(或輸入其他任意建退回搜尋課程):")
                if mode == '1':
                    modify_content.modify(course[2],course[6], course[7])
                    print("修改完成，繼續搜尋課程模式")
+               elif mode == '2':
+                   new_add_selection.add(state,uid,course_code)
